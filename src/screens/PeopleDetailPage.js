@@ -6,6 +6,8 @@ import {
     StyleSheet,
 } from 'react-native';
 
+import Line from '../components/Line';
+
 export default class PeopleDetailPage extends React.Component {
     render() {
 
@@ -16,10 +18,12 @@ export default class PeopleDetailPage extends React.Component {
                 <Image source={{ uri: people.picture.large }}
                     style={styles.avatar} />
                 <View style={styles.detailContainer}>
-                    <View style={styles.line}>
-                        <Text style={styles.cell}>Email:</Text>
-                        <Text style={styles.cell}>{people.email}</Text>
-                    </View>
+                    <Line label="Email:" content={people.email} />
+                    <Line label="Cidade:" content={people.location.city} />
+                    <Line label="Estado:" content={people.location.state} />
+                    <Line label="Tel:" content={people.phone} />
+                    <Line label="Cel:" content={people.cell} />
+                    <Line label="Nat:" content={people.nat} />
                 </View>
             </View>
         );
@@ -37,21 +41,5 @@ const styles = StyleSheet.create({
         backgroundColor: '#7871A2',
         marginTop: 20,
         elevation: 1.
-    },
-    line: {
-        flexDirection: 'row',
-        paddingTop: 3,
-        paddingBottom: 3,
-        borderWidth: 2,
-        borderColor: '#F7DDF4',
-    },
-    cellLabel: {
-        fontSize: 25,
-        color: '#F7DDF4',
-        fontWeight: 'bold',
-    },
-    cellContent: {
-        fontSize: 25,
-        color: '#F7DDF4',
     },
 })

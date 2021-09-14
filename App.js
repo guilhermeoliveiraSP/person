@@ -12,11 +12,11 @@ const AppNavigator = createStackNavigator({
   'PeopleDetail': {
     screen: PeopleDetailPage,
     navigationOptions: ({ navigation }) => {
-      const PeopleName = capitalizeFirstLetter(
+      const peopleName = capitalizeFirstLetter(
         navigation.state.params.people.name.first
       );
       return ({
-        title: PeopleName,
+        title: peopleName,
       });
     }
   }
