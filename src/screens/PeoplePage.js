@@ -13,6 +13,7 @@ export default class PeoplePage extends React.Component {
         this.state = {
             peoples: [],
             loading: false,
+            error: false,
         };
     }
 
@@ -20,27 +21,46 @@ export default class PeoplePage extends React.Component {
         this.setState({ loading: true });
         setTimeout(() => {
             axios
-                .get('https://randomuser.me/api/?nat=br&results=150')
+                .get('https://randomuser.me/api/?nat=br&results=80')
                 .then(response => {
                     const { results } = response.data;
                     this.setState({
                         peoples: results,
                         loading: false,
                     });
-                })
-        }, 1500)
+                }).catch(error => {
+                    this.setState({ error: true })
+                });
+        }, 350)
 
     }
 
+    // renderLoading() {
+    //     if (this.state.loading)
+    //         return <ActivityIndicator size="large" color="#7871A2" />;
+    //     return null;
+    // }
+
     render() {
         return (
-            <View>
-                <ActivityIndicator size="large" color="#7871A2" />
-                <PeopleList peoples={this.state.peoples}
-                    onPressItem={(pageParams) => {
-                        this.props.navigation.navigate('PeopleDetail', pageParams);
-                    }} />
+            <View style={styles.container}>
+                {/* {this.renderLoading()} */}
+                {
+                    this.state.loading
+                        ? <ActivityIndicator size="large" color="#7871A2" />
+                        : <PeopleList
+                            peoples={this.state.peoples}
+                            onPressItem={(pageParams) => {
+                                this.props.navigation.navigate('PeopleDetail', pageParams);
+                            }} />
+                }
             </View >
         );
     }
 }
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+    }
+});
